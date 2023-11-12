@@ -1,0 +1,9 @@
+ string inputfilename()
+{
+   string s;
+
+   cout << "Enter filename: ";
+   getline(cin, s);
+   return s; 
+   
+}
