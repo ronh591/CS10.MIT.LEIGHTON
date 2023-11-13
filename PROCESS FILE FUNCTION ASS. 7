@@ -1,0 +1,43 @@
+void processFile(string inputFilename, string outputFilename, int key, string encodeDecode) {
+  // Create an ifstream named inFile connecting your program to inputFileName.
+  ifstream inFile(inputFilename);
+
+  // Check that inFile opened correctly. If not, return false.
+  if (!inFile.is_open()) {
+    cout << "Error opening input file: " << inputFilename << endl;
+    return false;
+  }
+
+  // Create an ofstream named outFile connecting your program to outputFileName.
+  ofstream outFile(outputFilename);
+
+  // Check that outFile opened correctly. If not, return false.
+  if (!outFile.is_open()) {
+    cout << "Error opening output file: " << outputFilename << endl;
+    return false;
+  }
+
+  // Use a loop to read the input file. Inside the loop, perform the following:
+  while (!inFile.eof()) {
+    // Read a single character from the file.
+    char c = inFile.get();
+
+    // Call the appropriate function to either encode or decode the message.
+    char encodedChar;
+    if (encodeDecode == "e") {
+      encodedChar = caesarEncode(c, key);
+    } else if (encodeDecode == "d") {
+      encodedChar = caesarDecode(c, key);
+    } else {
+      cout << "Invalid encode/decode parameter: " << encodeDecode << endl;
+      return false;
+    }
+
+    // Write the return value of the function into a separate output file.
+    outFile << encodedChar;
+  }
+
+  // When file operations are complete, close all ifstream and ofstream connections.
+  inFile.close();
+  outFile.close();
+}
