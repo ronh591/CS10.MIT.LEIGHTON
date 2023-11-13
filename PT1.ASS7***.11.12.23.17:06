@@ -1,0 +1,37 @@
+#include <iostream>
+
+
+
+using namespace std;
+
+void processFile(string inputFilename, string outputFilename, int key, string encodeDecode);
+
+int main() {
+  // Welcome the user.
+  cout << "Welcome to the encoding and decoding program!" << endl;
+
+  // Ask the user if they would like to encode or decode a message.
+  string encodeDecode;
+  cout << "Would you like to encode or decode a message? (e/d): ";
+  cin >> encodeDecode;
+
+  // Ask the user for the input filename.
+  string inputFilename;
+  cout << "Enter the input filename: ";
+  cin >> inputFilename;
+
+  // Ask the user for the output filename.
+  string outputFilename;
+  cout << "Enter the output filename: ";
+  cin >> outputFilename;
+
+  // Ask the user for an integer key value.
+  int key;
+  cout << "Enter an integer key value: ";
+  cin >> key;
+
+  // Call the processFile function.
+  
+
+  return 0;
+}
