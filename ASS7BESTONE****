@@ -1,0 +1,147 @@
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+// Define the CaesarEncode() and CaesarDecode() functions.
+char CaesarEncode(char ch, int key);
+char CaesarDecode(char ch, int key);
+
+// Define the processFile() function.
+void processFile(string inputFilename, string outputFilename, int key, string encodeDecode);
+
+int main() {
+  // Welcome the user.
+  cout << "Welcome to the encoding and decoding program!" << endl;
+
+  // Ask the user if they would like to encode or decode a message.
+  string encodeDecode;
+  cout << "Would you like to encode or decode a message? (e/d): ";
+  cin >> encodeDecode;
+
+  // Ask the user for the input filename.
+  string inputFilename;
+  cout << "Enter the input filename: ";
+  cin >> inputFilename;
+
+  // Ask the user for the output filename.
+  string outputFilename;
+  cout << "Enter the output filename: ";
+  cin >> outputFilename;
+
+  // Ask the user for an integer key value.
+  int key;
+  cout << "Enter an integer key value: ";
+  cin >> key;
+
+  // Call the processFile function.
+  processFile(inputFilename, outputFilename, key, encodeDecode);
+
+  return 0;
+}
+
+void processFile(string inputFilename, string outputFilename, int key, string encodeDecode) {
+  // Open the input file and output file.
+  ifstream inFile(inputFilename);
+  ofstream outFile(outputFilename);
+
+  // Check that the input file opened correctly.
+  if (!inFile.is_open()) {
+    cout << "Error opening input file: " << inputFilename << endl;
+    exit(1);
+  }
+
+  // Check that the output file opened correctly.
+  if (!outFile.is_open()) {
+    cout << "Error opening output file: " << outputFilename << endl;
+    exit(1);
+  }
+
+  // Read each line from the input file.
+  string line;
+  while (getline(inFile, line)) {
+    // Encode or decode the line, depending on the value of the encodeDecode parameter.
+    string encodedOrDecodedLine;
+    if (encodeDecode == "e") {
+      encodedOrDecodedLine = CaesarEncode(line, key);
+    } else if (encodeDecode == "d") {
+      encodedOrDecodedLine = CaesarDecode(line, key);
+    } else {
+      cout << "Invalid encode/decode parameter: " << encodeDecode << endl;
+      exit(1);
+    }
+
+    // Write the encoded or decoded line to the output file.
+    outFile << encodedOrDecodedLine << endl;
+  }
+
+  // Close the input file and output file.
+  inFile.close();
+  outFile.close();
+}
+
+/* Implement the CaesarEncode() and CaesarDecode() functions here.
+* CaesarEncode implements the Caesar cipher encoding scheme.        *
+ *                                                                   * 
+ * Receive: ch, a character.                                         *
+ *          key, the amount by which to rotate ch.                   *
+ * Return:  The character that is key positions after ch,            *
+ *          with "wrap-around" to the beginning of the sequence.     *
+ *********************************************************************/
+#include <cstdlib>     // exit()
+#include <cctype>      // isupper(), islower()
+
+char CaesarEncode(char ch, int key)
+{
+  const int FIRST_UPPER = 65,
+            FIRST_LOWER = 97,
+            NUM_CHARS = 26;
+
+  if (key <= 0 || key >= NUM_CHARS)
+    {
+      cerr << "\n*** CaesarEncode: key must be between 1 and 25\n" << endl;
+      exit(1);
+    }
+  
+  if (isupper(ch))
+    return (ch - FIRST_UPPER + key) % NUM_CHARS + FIRST_UPPER;
+  else if (islower(ch))
+    return (ch - FIRST_LOWER + key) % NUM_CHARS + FIRST_LOWER;
+  else
+    return ch;
+}
+
+
+**********************************************
+CaesarDecode implements the Caesar cipher encoding scheme.       *
+ *                                                                  * 
+ * Receive: ch, a character,                                        *
+ *          key, an integer.                                        *
+ * Return:  The character that is key positions before ch,          *
+ *          with "wrap-around" to the end of the sequence.          *
+ ********************************************************************/
+#include <cstdlib>     // exit()
+#include <cctype>      // isupper(), islower()
+
+char CaesarDecode(char ch, int key)
+{
+  const int FIRST_UPPER = 65,
+            FIRST_LOWER = 97,
+            NUM_CHARS = 26;
+  
+  if (key <= 0 || key >= 26)
+  {
+     cerr << "\n*** CaesarDecode: key must be between 1 and 25!\n" << endl;
+     exit(1);
+  }
+
+  if (isupper(ch))
+    return (ch - FIRST_UPPER + NUM_CHARS - key) % NUM_CHARS + FIRST_UPPER;
+  else if (islower(ch))
+    return (ch - FIRST_LOWER + NUM_CHARS - key) % NUM_CHARS + FIRST_LOWER;
+  else
+    return ch;
+}
+
+
+*/
