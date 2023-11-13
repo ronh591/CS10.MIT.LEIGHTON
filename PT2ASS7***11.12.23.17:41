@@ -1,0 +1,50 @@
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+// Declare the caesarEncode() and caesarDecode() functions.
+string caesarEncode(string line, int key);
+string caesarDecode(string line, int key);
+
+void processFile(string inputFilename, string outputFilename, int key, string encodeDecode) {
+  // Create an ifstream named inFile connecting your program to inputFileName.
+  ifstream inFile(inputFilename);
+
+  // Check that inFile opened correctly. If not, exit the program.
+  if (!inFile.is_open()) {
+    cout << "Error opening input file: " << inputFilename << endl;
+    exit(1);
+  }
+
+  // Create an ofstream named outFile connecting your program to outputFileName.
+  ofstream outFile(outputFilename);
+
+  // Check that outFile opened correctly. If not, exit the program.
+  if (!outFile.is_open()) {
+    cout << "Error opening output file: " << outputFilename << endl;
+    exit(1);
+  }
+
+  // Read the input file line by line.
+  string line;
+  while (getline(inFile, line)) {
+    // Encode or decode the line.
+    string encodedOrDecodedLine;
+    if (encodeDecode == "e") {
+      encodedOrDecodedLine = caesarEncode(line, key);
+    } else if (encodeDecode == "d") {
+      encodedOrDecodedLine = caesarDecode(line, key);
+    } else {
+      cout << "Invalid encode/decode parameter: " << encodeDecode << endl;
+      exit(1);
+    }
+
+    // Write the encoded or decoded line to the output file.
+    outFile << encodedOrDecodedLine << endl;
+  }
+
+  // When file operations are complete, close all ifstream and ofstream connections.
+  inFile.close();
+  outFile.close();
+}
