@@ -1,0 +1,10 @@
+int main() {
+  // ...
+
+  // Call the processFile function.
+  processFile("input.txt", "output.txt", 5, "e");
+
+  // ...
+
+  return 0;
+}
